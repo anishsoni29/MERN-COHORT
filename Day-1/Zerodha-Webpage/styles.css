@@ -60,3 +60,22 @@ ul {
   font-weight: 300;
   margin-top: -15px;
 }
+
+button {
+  width: 250px;
+  height: 70px;
+  background-color: #3872d1;
+  color: #fff;
+  border: 1px solid rgba(0, 0, 0, 0);
+  border-radius: 75px;
+  padding: 10px 30px;
+  font-weight: 400;
+  cursor: pointer;
+  font-size: 30px;
+  margin-top: 20px;
+}
+
+button:hover {
+  background-color: black;
+  color: #fff;
+}
