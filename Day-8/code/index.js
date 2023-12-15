@@ -1,23 +1,34 @@
-// creating a http server
-// using expresss
-// not a node default library
-
 const express = require("express");
-
 const app = express();
 
-function sum(n) {
-  let ans = 0;
-  for (let i = 1; i <= n; i++) {
-    ans += i;
-  }
-  return ans;
-}
+const users = [
+  {
+    name: "Anish",
+    kidneys: [
+      {
+        healthy: true,
+      },
+    ],
+  },
+];
 
 app.get("/", function (req, res) {
-  const n = req.query.n;
-  const ans = sum(n);
-  res.send("Hi your answer is " + ans);
+  const anishKidneys = users[0].kidneys;
+  const numberOfKidneys = anishKidneys.length;
+
+  let numberOfHealthyKidneys = 0;
+  for (let i = 0; i < anishKidneys; i++) {
+    if (anishKidneys[i].healthy) {
+      numberOfHealthyKidneys++;
+    }
+  }
+  const numberOfUnhealthyKidneys = numberOfKidneys - numberOfHealthyKidneys;
+  //filter
+  res.json({
+    numberOfKidneys,
+    numberOfHealthyKidneys,
+    numberOfUnhealthyKidneys,
+  });
 });
 
 app.listen(3000);
