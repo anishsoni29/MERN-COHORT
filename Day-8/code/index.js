@@ -12,6 +12,7 @@ const users = [
   },
 ];
 
+//query parameters
 app.get("/", function (req, res) {
   const anishKidneys = users[0].kidneys;
   const numberOfKidneys = anishKidneys.length;
@@ -28,6 +29,16 @@ app.get("/", function (req, res) {
     numberOfKidneys,
     numberOfHealthyKidneys,
     numberOfUnhealthyKidneys,
+  });
+});
+
+app.post("/", function (req, res) {
+  const isHealthy = req.body.isHealthy;
+  users[0].kidneys.push({
+    healthy: isHealthy,
+  });
+  res.json({
+    message: "Added the Healthy Kidney!",
   });
 });
 
