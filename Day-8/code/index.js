@@ -12,6 +12,8 @@ const users = [
   },
 ];
 
+app.use(express.json());
+
 //query parameters
 app.get("/", function (req, res) {
   const anishKidneys = users[0].kidneys;
@@ -39,6 +41,28 @@ app.post("/", function (req, res) {
   });
   res.json({
     message: "Added the Healthy Kidney!",
+  });
+});
+
+app.put("/", function (req, res) {
+  for (let i = 0; i < users[0].kidneys.length; i++) {
+    users[0].kidneys[i].healthy = true;
+  }
+  res.json({});
+});
+
+app.delete("/", function (req, res) {
+  const newKidneys = [];
+  for (let i = 0; i < users[0]; i++) {
+    if (users[0].kidneys[i].healthy) {
+      newKidneys.push({
+        healthy: true,
+      });
+    }
+  }
+  users[0].kidneys = newKidneys;
+  res.json({
+    message: "Removed all the unhealthy kidneys!",
   });
 });
 
