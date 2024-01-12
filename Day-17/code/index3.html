@@ -1,0 +1,42 @@
+<!-- The harder assignment -->
+<!-- debounce function -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+    <script>
+        function debouncePopulateDiv(){
+            //delay the call to populateDiv until I've not been called for 100ms
+            //but how to cancel the clock == clearTimeout
+            const timeout = setTimeout(function(){
+                populateDiv();
+            }, 100);
+
+            clearTimeout(timeout);
+
+        }
+        function populateDiv(){
+            const a = document.getElementById("firstNumber").value;
+            const b = document.getElementById("secondNumber").value;
+
+            //axios
+            fetch("http://sum-server.100xdevs.com/sum?a=" + a + "&b=" + b)
+                .then(function(response){
+                    response.text()
+                        .then(function(ans){
+                            document.getElementById("finalSum").innerHTML = ans;
+                        })
+                });
+        }
+    </script>
+    
+
+
+<body>
+    <input oninput="debouncePopulateDiv()" id="firstNumber" type="text" placeholder="First Number">
+    <br></br>
+    <input oninput="debouncePopulateDiv()" id="secondNumber" type="text" placeholder="Second number">
+    <br></br>
+    <div class="finalSum"></div>
+</body>
+</html>
