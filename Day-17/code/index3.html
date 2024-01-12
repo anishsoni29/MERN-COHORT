@@ -7,15 +7,12 @@
     <script>
         let timeout;
         function debouncePopulateDiv(){
-    
-            //delay the call to populateDiv until I've not been called for 100ms
-            //but how to cancel the clock == clearTimeout
-
+            //after the populateDiv function is called, then only call the deboundePopulateDiv function after a 1000 ms.
+            
             clearTimeout(timeout);
             timeout = setTimeout(function(){
                 populateDiv();
-            }, 100);
-
+            }, 1000);
         }
         function populateDiv(){
             const a = document.getElementById("firstNumber").value;
