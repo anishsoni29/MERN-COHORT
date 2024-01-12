@@ -5,14 +5,16 @@
 <html lang="en">
 
     <script>
+        let timeout;
         function debouncePopulateDiv(){
+    
             //delay the call to populateDiv until I've not been called for 100ms
             //but how to cancel the clock == clearTimeout
-            const timeout = setTimeout(function(){
-                populateDiv();
-            }, 100);
 
             clearTimeout(timeout);
+            timeout = setTimeout(function(){
+                populateDiv();
+            }, 100);
 
         }
         function populateDiv(){
