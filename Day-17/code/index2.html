@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+  <script>
+    //this is js code
+    //this let's you manipulate the code which you have written below just on the click of a button
+    function populateDiv() {
+      //getting the values of the input boxes
+      const a = document.getElementById("firstNumber").value;
+      const b = document.getElementById("secondNumber").value;
+      element.innerHTML = parseInt(a) + parseInt(b);
+    }
+  </script>
+  <body>
+    <input id="firstNumber" type="text" placeholder="First number" />
+    <br />
+    <input id="secondNumber" type="text" placeholder="Second number" />
+    <br />
+    <button onclick="populateDiv()">Calculate Sum</button>
+    <div class="finalSum"></div>
+    <!-- now to make this website dynamic, we need to use JS -->
+    <!-- more specific the DOM API is needed to be used -->
+  </body>
+</html>
