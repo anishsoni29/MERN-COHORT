@@ -5,22 +5,42 @@ function App() {
 
   return (
     <div>
-      <Count count={count} />
-      <Buttons />
+      <Count count={count} setCount={setCount} />
     </div>
   );
 }
 
-function Count({ count }) {
+function Count({ count, setCount }) {
+  return (
+    <div>
+      <CountRenderer count={count} />
+      <Buttons count={count} setCount={setCount} />
+    </div>
+  );
+}
+
+function CountRenderer({ count }) {
   return <div>{count}</div>;
 }
 
-function Buttons() {
+function Buttons({ count, setCount }) {
   return (
     <div>
-      <button onClick={() => {}}>Increase</button>
+      <button
+        onClick={() => {
+          setCount(count + 1);
+        }}
+      >
+        Increase
+      </button>
 
-      <button onClick={() => {}}>Decrease</button>
+      <button
+        onClick={() => {
+          setCount(count - 1);
+        }}
+      >
+        Decrease
+      </button>
     </div>
   );
 }
