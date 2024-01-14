@@ -3,9 +3,9 @@
   <script>
     function onButtonPress() {
       const currentValue = document.getElementById("btn").innerHTML;
-      const currentCounter = currentValue.split(" ");
+      const currentCounter = currentValue.split(" ")[1];
       const newCounter = parseInt(currentCounter) + 1;
-      document.getElementById("btn").innerHTML = "Counter" + newCounter;
+      document.getElementById("btn").innerHTML = "Counter " + newCounter; // Added a space after "Counter"
     }
   </script>
   <body>
