@@ -1,58 +1,22 @@
-import React, { useState } from "react";
-
-let counter = 4;
+import React from "react";
 
 function App() {
-  const [todos, setTodos] = useState([
-    {
-      id: 1,
-      title: "Go to the gym",
-      description: "You need to go to the gym",
-    },
-    {
-      id: 2,
-      title: "Go to market",
-      description: "You need to go with Mummy",
-    },
-    {
-      id: 3,
-      title: "Read that book",
-      description: "Read the Cave by Alok Kejriwal!",
-    },
-  ]);
-
-  function addTodo() {
-    setTodos([
-      ...todos,
-      {
-        id: counter++,
-        title: Math.random().toString(),
-        description: Math.random().toString(),
-      },
-    ]);
-  }
-
   return (
     <div>
-      <button onClick={addTodo}>Add a todo</button>
-      {todos.map(function (todo) {
-        return (
-          <Todo
-            key={todo.id}
-            title={todo.title}
-            description={todo.description}
-          />
-        );
-      })}
+      <CardWrapper innerComponent={<TextComponent />} />
     </div>
   );
 }
 
-function Todo({ title, description }) {
+function TextComponent() {
+  return <div>Hi there</div>;
+}
+//here another component can be defined and passed, but the wrapper is the same.
+
+function CardWrapper({ innerComponent }) {
   return (
-    <div>
-      <h1>{title}</h1>
-      <h4>{description}</h4>
+    <div style={{ border: "2px solid black", padding: 20 }}>
+      {innerComponent}
     </div>
   );
 }
