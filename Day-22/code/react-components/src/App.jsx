@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 
+let counter = 4;
+
 function App() {
   const [todos, setTodos] = useState([
     {
@@ -23,7 +25,7 @@ function App() {
     setTodos([
       ...todos,
       {
-        id: 4,
+        id: counter++,
         title: Math.random().toString(),
         description: Math.random().toString(),
       },
