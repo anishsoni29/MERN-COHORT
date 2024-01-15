@@ -3,17 +3,13 @@
 
 const express = require("express");
 const { createTodo, updateTodo } = require("./types");
+const { todo } = require("./db");
 const app = express();
 
 app.use(express.json());
 
-//body {
-//title: string;
-//description: string;
-//} --> for this we need to use ZOD, otherwise the users can put anything they want.
-
 //for writing the todo
-app.post("/todo", function (req, res) {
+app.post("/todo", async function (req, res) {
   //adding validation here
   const createPayload = req.body;
   const parsedPayload = createTodo.safeParse(createPayload);
@@ -23,16 +19,30 @@ app.post("/todo", function (req, res) {
     });
     return;
   }
-  //putting in the mongodb schema:
-  //updating something in mongodb, creating something in mondodb, and deleting something in mongodb.
-  //this will come under the post method.
+  //put it in mongo db
+
+  await todo.create({
+    title: createPayload.title,
+    description: createPayload.description,
+    completed: false,
+  });
+  res.json({
+    msg: "Todo created successfully",
+  });
 });
 
 //for reading the todo
-app.get("/todos", function (req, res) {});
+//here you have to await for the database to fetch the data from you from a server in a different corner of the world.
+app.get("/todos", async function (req, res) {
+  const todos = await todo.find({});
+  res.json({
+    todos,
+    //only todos since we are not looking to fetch a particular task.
+  });
+});
 
 //for marking the todo as completed
-app.put("/completed", function (req, res) {
+app.put("/completed", async function (req, res) {
   //adding validation here
   const updatePayload = req.body;
   const parsedPayload = updateTodo.safeParse(updatePayload);
@@ -42,4 +52,15 @@ app.put("/completed", function (req, res) {
     });
     return;
   }
+  await todo.update(
+    {
+      _id: req.body.id,
+    },
+    {
+      completed: true,
+    }
+  );
+  res.json({
+    msg: "Todo marked as completed",
+  });
 });
