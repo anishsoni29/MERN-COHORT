@@ -1,8 +1,21 @@
+//re-render assignment
+
+import React, { useState } from "react";
+
+//react-returns
+
 function App() {
+  //state variable
+  const [title, setTitle] = useState("my name is Anish");
+
+  function updateTitle() {
+    setTitle("My name is " + Math.random());
+  }
+
   return (
-    //jsx expressions must have one parent expression that's why this div is needed.
     <div>
-      <Header title="Hello World" />
+      <button onClick={updateTitle}> Update the title </button>
+      <Header title={title} />
       <Header title="Hello Anish" />
     </div>
   );
@@ -10,7 +23,7 @@ function App() {
 
 //object destructuring --> no need to use props
 function Header({ title }) {
-  return <h1>{title}</h1>;
+  return <div>{title}</div>;
 }
 
 export default App;
