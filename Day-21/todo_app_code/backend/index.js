@@ -5,6 +5,14 @@ const express = require("express");
 const { createTodo, updateTodo } = require("./types");
 const { todo } = require("./db");
 const app = express();
+const cors = require("cors");
+
+app.use(
+  cors({
+    origin: "http://localhost:5173",
+  })
+);
+//this backend is insecure now since any frontend can use this backend.
 
 app.use(express.json());
 

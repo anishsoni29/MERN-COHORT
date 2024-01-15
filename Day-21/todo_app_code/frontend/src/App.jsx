@@ -6,14 +6,32 @@ import { Todos } from "./components/Todos";
 import "./App.css";
 
 function App() {
-  const [count, setCount] = useState(0);
+  const [count, setCount] = useState([]);
+
+  fetch("http://localhost:3000/todos").then(async function (res) {
+    const json = await res.json();
+    setTodos(json.todos);
+  });
+
+  //to connect this with the backend --> use the state variables.
+  //updating the state
 
   return (
     <div>
       <CreateTodo />
-      <Todos />
+      <Todos
+        todos={[
+          {
+            title: "Go to the gym",
+            description: "You need to go to the gym",
+            completed: false,
+          },
+        ]}
+      ></Todos>
     </div>
   );
 }
 
 export default App;
+
+//CORS library : Let's the frontend hit the backend
