@@ -16,7 +16,7 @@ function App() {
     <div>
       <button onClick={updateTitle}> Update the title </button>
       <Header title={title} />
-      <Header title="Hello Anish" />
+      <Header title="Anish" />
     </div>
   );
 }
