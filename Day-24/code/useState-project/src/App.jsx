@@ -2,24 +2,28 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 
 function App() {
-  const [todos, setTodos] = useState([]);
+  return (
+    <div>
+      <Todo id={1} />
+    </div>
+  );
 
+  //initialising the state variables
+  function Todo() {
+    const [todo, setTodo] = useState({});
+  }
+  //useEffect hook to fetch data from the api and non infinitely.
   useEffect(() => {
-    // Fetch todos from your server
-    axios.get("http://localhost:3001/todos").then((response) => {
-      console.log(response);
-      setTodos(response.data.todos);
-    });
+    axios
+      .get("https://sum-server.100xdevs.com/todo?id=1")
+      .then(function (response) {
+        setTodos(response.data.todos);
+      });
   }, []);
-
   return (
     <>
-      {todos.map((todo) => (
-        <div key={todo._id}>
-          <h1>{todo.title}</h1>
-          <h2>{todo.description}</h2>
-        </div>
-      ))}
+      <h1>{todo.title}</h1>
+      <h2>{todo.description}</h2>
     </>
   );
 }
