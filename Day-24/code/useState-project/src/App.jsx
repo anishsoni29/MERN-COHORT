@@ -1,69 +1,39 @@
-import { useState } from "react";
-import { useEffect } from "react";
-import axios from "axios";
+//major flaw in this code is that it re-renders the expensive for loop.
+
+import { useMemo, useState, useEffect } from "react";
 
 function App() {
-  //before using the effect of different id on each button , use a state and hook.
-  const [selectedId, setSelectedId] = useState(1);
+  const [counter, setCounter] = useState(0);
+  const [inputValue, setInputValue] = useState(1);
+
+  let count = useMemo(() => {
+    let finalCount = 0;
+    console.log("useMemo called");
+    for (let i = 0; i <= inputValue; i++) {
+      finalCount += i;
+    }
+    return finalCount;
+  }, [inputValue]);
+  //changes according to the input value
 
   return (
     <div>
+      <input
+        onChange={function (e) {
+          setInputValue(e.target.value);
+        }}
+        placeholder={"Find sum from 1 to n"}
+      ></input>
+      <br />
+      Sum from 1 to {inputValue} is {count}
+      <br />
       <button
-        onClick={function () {
-          setSelectedId(1);
+        onClick={() => {
+          setCounter(counter + 1);
         }}
       >
-        1
+        Counter ({counter})
       </button>
-      <button
-        onClick={function () {
-          setSelectedId(2);
-        }}
-      >
-        2
-      </button>
-      <button
-        onClick={function () {
-          setSelectedId(3);
-        }}
-      >
-        3
-      </button>
-      <button
-        onClick={function () {
-          setSelectedId(4);
-        }}
-      >
-        4
-      </button>
-      <Todo id={selectedId}></Todo>
-    </div>
-  );
-}
-
-//passing id inside the Todo component.
-function Todo({ id }) {
-  const [todo, setTodo] = useState({});
-  //the todo element is being fetched from the backend.
-
-  //implement effect here -->
-
-  useEffect(() => {
-    axios
-      .get(`https://sum-server.100xdevs.com/todo?id=` + id)
-      .then((response) => {
-        setTodo(response.data.todo);
-      });
-  }),
-    [id];
-
-  //the data.todo is being fetched from the backend and it is the boilerplate of the axios library.
-
-  return (
-    <div>
-      Id = {id}
-      <h1>{todo.title}</h1>
-      <h2>{todo.description}</h2>
     </div>
   );
 }
