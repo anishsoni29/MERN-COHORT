@@ -1,22 +1,25 @@
 import { useState } from "react";
 import { useEffect } from "react";
+import axios from "axios";
 
 function App() {
   return (
     <div>
-      <Todo id={1}></Todo>
+      <Todo id={4}></Todo>
     </div>
   );
 }
 
-function Todo() {
+//passing id inside the Todo component.
+function Todo({ id }) {
   const [todo, setTodo] = useState({});
+  //the todo element is being fetched from the backend.
 
   //implement effect here -->
 
   useEffect(() => {
     axios
-      .get("https://sum-server.100xdevs.com/todo?id=1" + id)
+      .get(`https://sum-server.100xdevs.com/todo?id=` + id)
       .then((response) => {
         setTodo(response.data.todo);
       });
