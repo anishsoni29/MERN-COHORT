@@ -3,9 +3,40 @@ import { useEffect } from "react";
 import axios from "axios";
 
 function App() {
+  //before using the effect of different id on each button , use a state and hook.
+  const [selectedId, setSelectedId] = useState(1);
+
   return (
     <div>
-      <Todo id={4}></Todo>
+      <button
+        onClick={function () {
+          setSelectedId(1);
+        }}
+      >
+        1
+      </button>
+      <button
+        onClick={function () {
+          setSelectedId(2);
+        }}
+      >
+        2
+      </button>
+      <button
+        onClick={function () {
+          setSelectedId(3);
+        }}
+      >
+        3
+      </button>
+      <button
+        onClick={function () {
+          setSelectedId(4);
+        }}
+      >
+        4
+      </button>
+      <Todo id={selectedId}></Todo>
     </div>
   );
 }
@@ -24,12 +55,13 @@ function Todo({ id }) {
         setTodo(response.data.todo);
       });
   }),
-    [];
+    [id];
 
   //the data.todo is being fetched from the backend and it is the boilerplate of the axios library.
 
   return (
     <div>
+      Id = {id}
       <h1>{todo.title}</h1>
       <h2>{todo.description}</h2>
     </div>
