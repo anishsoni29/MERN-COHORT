@@ -1,5 +1,6 @@
 //major flaw in this code is that it re-renders the expensive for loop.
 //when a parent component re-renders, all the children will re-render.
+//there is a difference between memo and useMemo
 
 import { useMemo, useState, useEffect } from "react";
 
