@@ -13,6 +13,7 @@ function App() {
 function MyComponent() {
   useEffect(() => {
     console.error("MyComponent is mounted");
+    //the code goes to the bottom of the page when the dependency array changes and then it goes to the top
 
     return () => {
       console.log("MyComponent is unmounted");
