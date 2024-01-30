@@ -18,6 +18,7 @@ function MyComponent() {
       console.log("MyComponent is unmounted");
     };
   }, []); //--> this [] is the dependency array, anytime this changes, the code reruns.
+  //changing the value of the dependency array will cause the code to rerun.
 
   return <div>From inside MyComponent</div>;
 }
