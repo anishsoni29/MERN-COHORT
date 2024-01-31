@@ -1,4 +1,4 @@
-//explaination of custom hooks
+//explaination of React defined hooks
 import { useDebugValue, useEffect } from "react";
 
 //defining the state variablles here
