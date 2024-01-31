@@ -12,6 +12,7 @@ function useTodos() {
       setTodos(res.data.todos);
     });
   }, []);
+  return todos;
 }
 
 function App() {
