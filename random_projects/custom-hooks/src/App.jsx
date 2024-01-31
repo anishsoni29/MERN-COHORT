@@ -13,11 +13,8 @@ function App() {
     }, 10000);
   }, []); //--> using the dependency array to make it run according to the changes made.
 
-  return (
-    <>
-      <MyComponent />
-    </>
-  );
+  //returning if the render component is true, if not then return only the div component
+  return <>{render ? <MyComponent /> : <div></div>}</>;
 }
 
 //using custom hooks
