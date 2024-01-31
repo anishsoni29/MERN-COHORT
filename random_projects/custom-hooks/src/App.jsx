@@ -4,7 +4,7 @@ import { axios } from "./axios";
 //designing the custom hook : A hook is basically a function which starts with use and has a self calling hook either React based or custom component.
 //the main aim is to not write the logic in the main functional component.
 
-function useTodos() {
+function useTodos(n) {
   const [todos, setTodos] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -12,7 +12,7 @@ function useTodos() {
   //hence we are using it twice here. --> once for the mobile application and once for the web app.
 
   useEffect(() => {
-    setInterval(() => {
+    const value = setInterval(() => {
       axios.get("https://sum-server.100xdevs.com/todos").then((res) => {
         setTodos(res.data.todos);
         setLoading(false);
@@ -22,7 +22,12 @@ function useTodos() {
       setTodos(res.data.todos);
       setLoading(false);
     });
-  }, []);
+    return () => {
+      clearInterval(value);
+      //to stop the clock.
+    };
+    //the state variable [n] here should be the depencdency.
+  }, [n]);
   return { todos, loading };
 }
 
