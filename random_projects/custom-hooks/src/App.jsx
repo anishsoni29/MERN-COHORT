@@ -8,7 +8,7 @@ function useTodos() {
   const [todos, setTodos] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  //this setInterval is used to fetch the new data from the backend in every 5 seconds.
+  //backend polling--> this setInterval is used to fetch the new data from the backend in every 5 seconds.
   //hence we are using it twice here. --> once for the mobile application and once for the web app.
 
   useEffect(() => {
@@ -16,7 +16,7 @@ function useTodos() {
       axios.get("https://sum-server.100xdevs.com/todos").then((res) => {
         setTodos(res.data.todos);
         setLoading(false);
-      });
+      }, n * 1000);
     });
     axios.get("https://sum-server.100xdevs.com/todos").then((res) => {
       setTodos(res.data.todos);
