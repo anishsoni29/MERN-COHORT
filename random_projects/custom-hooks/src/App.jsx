@@ -1,14 +1,17 @@
 //explaination of custom hooks
 import { useDebugValue, useEffect } from "react";
 
+//defining the state variablles here
+const [render, setRender] = useState(true);
+
 function App() {
   //to make the MyComponent function to stop running after 5 seconds,
   // we can use the useEffect hook with the setTimeout function
   useEffect(() => {
     setTimeout(() => {
-      setRerender(false); //this makes it to stop re-rendering after the setTimeout interval.
-    });
-  }, []); //--> using
+      setRender(false); //this makes it to stop re-rendering after the setTimeout interval.
+    }, 10000);
+  }, []); //--> using the dependency array to make it run according to the changes made.
 
   return (
     <>
