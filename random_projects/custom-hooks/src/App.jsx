@@ -8,9 +8,9 @@ function App() {
   //to make the MyComponent function to stop running after 5 seconds,
   // we can use the useEffect hook with the setTimeout function
   useEffect(() => {
-    setTimeout(() => {
-      setRender(false); //this makes it to stop re-rendering after the setTimeout interval.
-    }, 10000);
+    setInterval(() => {
+      setRender((r) => !r); //this makes it to stop re-rendering after the setTimeout interval.
+    }, 5000);
   }, []); //--> using the dependency array to make it run according to the changes made.
 
   //returning if the render component is true, if not then return only the div component
