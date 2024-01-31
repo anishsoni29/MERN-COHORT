@@ -15,6 +15,7 @@ function App() {
 
   //returning if the render component is true, if not then return only the div component
   return <>{render ? <MyComponent /> : <div></div>}</>;
+  //this is a ternary operator, if the render is true, then return the MyComponent, if not then return an empty div
 }
 
 //using custom hooks
