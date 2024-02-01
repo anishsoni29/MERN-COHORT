@@ -18,19 +18,11 @@ function useIsOnline() {
 }
 
 function App() {
-  const { todos, loading } = useTodos();
-
-  if (loading) {
-    return <div>loading ...</div>;
+  const isOnline = useIsOnline();
+  if (isOnline) {
+    return "You are Online";
   }
-
-  return (
-    <div>
-      {todos.map((todo) => (
-        <Track todo={todo}></Track>
-      ))}
-    </div>
-  );
+  return "You are Offline, Please check your internet connection :(";
 }
 
 function Track({ todo }) {
