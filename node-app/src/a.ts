@@ -20,12 +20,3 @@ function isLegal(age: number) {
 isLegal(19);
 
 //A function which takes another function as an argument.
-
-//the type here is void.
-function runAfter1S(fn) {
-  setTimeout(fn, 1000);
-}
-
-runAfter1S(() => {
-  console.log("Hi there, this is the second function!");
-});
