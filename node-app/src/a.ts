@@ -1,22 +1,24 @@
-function sum(a: number, b: number) {
-  return a + b;
+//use of interfaces
+interface User {
+  firstName: string;
+  lastName: string;
+  age: number;
 }
 
-//type inference:
-
-const value = sum(1, 2);
-console.log(value);
-
-//you don't need to explicitly define the return type.
-//the hovering is the function signature, which already defines it.
-
-function isLegal(age: number) {
-  if (age >= 18) {
+function isLegal(user: User) {
+  if (user.age >= 18) {
     return true;
   } else {
     return false;
   }
 }
-isLegal(19);
 
-//A function which takes another function as an argument.
+function greet(user: User) {
+  console.log("Hello " + user.firstName + " " + user.lastName);
+}
+
+isLegal({
+  firstName: "Anish",
+  lastName: "Soni",
+  age: 22,
+});
