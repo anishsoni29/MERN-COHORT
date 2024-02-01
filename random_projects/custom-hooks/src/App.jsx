@@ -1,25 +1,14 @@
+//use interval hook
+
 import { useEffect, useState } from "react";
-import { axios } from "./axios";
-import { useIsOnline } from "./hooks/useIsOnline";
 
 function App() {
-  const isOnline = useIsOnline();
-  //exporting this hook to a different file makes it look more cleaner.
+  const [count, setCount] = useState(0);
 
-  if (isOnline) {
-    return "You are Online";
-  }
-  return "You are Offline, Please check your internet connection :(";
-}
-
-function Track({ todo }) {
-  return (
-    <div>
-      {todo.title}
-      <br />
-      {todo.description}
-    </div>
-  );
+  useInterval(() => {
+    setCount((c) => c + 1);
+  }, 1000);
+  return <>Timer is at {count}</>;
 }
 
 export default App;
