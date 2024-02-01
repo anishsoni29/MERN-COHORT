@@ -19,6 +19,7 @@ function useIsOnline() {
 
 function App() {
   const isOnline = useIsOnline();
+
   if (isOnline) {
     return "You are Online";
   }
