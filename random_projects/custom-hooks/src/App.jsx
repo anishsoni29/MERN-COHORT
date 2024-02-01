@@ -2,6 +2,17 @@
 
 import { useEffect, useState } from "react";
 
+function useInterval(fn, timeout) {
+  useEffect(() => {
+    setInterval(() => {
+      fn();
+    }, timeout);
+    return () => {
+      clearInterval();
+    }; //clearing the interval
+  }, []);
+}
+
 function App() {
   const [count, setCount] = useState(0);
 
