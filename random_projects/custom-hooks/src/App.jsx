@@ -1,24 +1,10 @@
 import { useEffect, useState } from "react";
 import { axios } from "./axios";
-
-function useIsOnline() {
-  const [isOnline, setIsOnline] = useState(window.navigator.onLine);
-
-  useEffect(() => {
-    window.addEventListener("online", () => {
-      setIsOnline(true);
-    });
-
-    window.addEventListener("offline", () => {
-      setIsOnline(false);
-    });
-  }, []); //--> dependecy array
-
-  return isOnline;
-}
+import { useIsOnline } from "./hooks/useIsOnline";
 
 function App() {
   const isOnline = useIsOnline();
+  //exporting this hook to a different file makes it look more cleaner.
 
   if (isOnline) {
     return "You are Online";
