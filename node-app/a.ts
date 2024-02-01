@@ -1,5 +1,7 @@
-//this is my first typescrpt file
+function greet(firstName: string) {
+  console.log("Hello" + firstName);
+}
 
-//so here whenever you are defining a variable, you need to give it a type : --> here the type is number.
-const x: number = 1;
-console.log(x);
+greet("Anish");
+
+//ts gives you typesafety
