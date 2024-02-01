@@ -1,34 +1,20 @@
 import { useEffect, useState } from "react";
 import { axios } from "./axios";
 
-//designing the custom hook : A hook is basically a function which starts with use and has a self calling hook either React based or custom component.
-//the main aim is to not write the logic in the main functional component.
-
-function useTodos(n) {
-  const [todos, setTodos] = useState([]);
-  const [loading, setLoading] = useState(true);
-
-  //backend polling--> this setInterval is used to fetch the new data from the backend in every 5 seconds.
-  //hence we are using it twice here. --> once for the mobile application and once for the web app.
+function useIsOnline() {
+  const [isOnline, setIsOnline] = useState(window.navigator.onLine);
 
   useEffect(() => {
-    const value = setInterval(() => {
-      axios.get("https://sum-server.100xdevs.com/todos").then((res) => {
-        setTodos(res.data.todos);
-        setLoading(false);
-      }, n * 1000);
+    window.addEventListener("online", () => {
+      setIsOnline(true);
     });
-    axios.get("https://sum-server.100xdevs.com/todos").then((res) => {
-      setTodos(res.data.todos);
-      setLoading(false);
+
+    window.addEventListener("offline", () => {
+      setIsOnline(false);
     });
-    return () => {
-      clearInterval(value);
-      //to stop the clock.
-    };
-    //the state variable [n] here should be the depencdency.
-  }, [n]);
-  return { todos, loading };
+  }, []); //--> dependecy array
+
+  return isOnline;
 }
 
 function App() {
