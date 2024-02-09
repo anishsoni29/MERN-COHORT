@@ -1,3 +1,12 @@
+//types and interfaces
+//types ==> either number or string;
+
+type GreetArc = number | string;
+
+function greet(id: GreetArc) {
+  console.log(id);
+}
+
 interface Person {
   age: Number;
   name: String;
