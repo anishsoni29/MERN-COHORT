@@ -1,5 +1,6 @@
 //types and interfaces
-//types ==> either number or string;
+//types ==> either number or string; : UNIONS AND INTERSECTIONS
+//interfaces ==> enforces implementation of certain methods.
 
 type GreetArc = number | string;
 
