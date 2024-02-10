@@ -1,32 +1,26 @@
-//types and interfaces
-//types ==> either number or string; : UNIONS AND INTERSECTIONS
-//interfaces ==> enforces implementation of certain methods.
+//enums --> slightly readable and more maintainable.
+//enums --> enumeratons --> they'll never reach the JS code.
+//at the end it's just creating an object with key value pairs.
 
-type GreetArc = number | string;
+type KeyInput = "up" | "down" | "left" | "right";
 
-function greet(id: GreetArc) {
-  console.log(id);
+//makes things slighly cleaner to read as compared to the type where intersection and unions are present.
+enum Directions {
+  Up,
+  Down,
+  Left,
+  Right,
 }
 
-interface Person {
-  age: Number;
-  name: String;
-  greet(phrase: string): void;
+function doSomething(keyPressed: KeyInput) {
+  //do something
 }
 
-class Employee implements Person {
-  name: String;
-  age: Number;
-
-  constructor(name: String, age: Number) {
-    this.name = name;
-    this.age = age;
-  }
-
-  greet(phrase: string) {
-    console.log(phrase + "" + this.name);
-  }
+function doSomething1(keyPressed: Directions) {
+  //do something with the enums!
 }
+doSomething1(Directions.Up);
+doSomething1(Directions.Down);
 
-const e = new Employee("Anish", 22);
-console.log(e.greet("Hi there"));
+doSomething("up");
+doSomething("down");
