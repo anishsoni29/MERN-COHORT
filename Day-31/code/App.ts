@@ -12,15 +12,8 @@ enum Directions {
   Right, //3
 }
 
-function doSomething(keyPressed: KeyInput) {
-  //do something
-}
-
 function doSomething1(keyPressed: Directions) {
   //do something with the enums!
 }
 doSomething1(Directions.Up);
 doSomething1(Directions.Down);
-
-doSomething("up");
-doSomething("down");
