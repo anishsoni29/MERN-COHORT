@@ -6,10 +6,10 @@ type KeyInput = "up" | "down" | "left" | "right";
 
 //makes things slighly cleaner to read as compared to the type where intersection and unions are present.
 enum Directions {
-  Up,
-  Down,
-  Left,
-  Right,
+  Up, //0
+  Down, //1
+  Left, //2
+  Right, //3
 }
 
 function doSomething(keyPressed: KeyInput) {
