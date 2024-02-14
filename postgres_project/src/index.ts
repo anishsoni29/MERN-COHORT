@@ -22,3 +22,13 @@ async function createUsersTable() {
 }
 
 createUsersTable();
+
+//to confirm whether the table was created or not use the psql.
+
+///create a function to insert data into the table and make it async
+async function insertData() {
+  const result_1 = await client.query(`
+    INSERT INTO users (name, email, password) VALUES ('anish', 'sonianish441@gmail.com', 'anish12334')`);
+}
+console.log(result_1);
+insertData();
