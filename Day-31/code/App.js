@@ -1,14 +1,7 @@
-//implementing the tsx code
-// creating classe for interfaces
-//implementing the interface
-var Employee = /** @class */ (function () {
-    function Employee(name, age, email) {
-        this.name = name;
-        this.age = age;
-        this.email = email;
-    }
-    Employee.prototype.greet = function (phrase) {
-        console.log(phrase + "" + this.name);
-    };
-    return Employee;
-}());
+function getFirstElement<T>(arg:T[]{
+    return arg[0];
+})
+//array of the template [T] is the input and the return value is arr[0]
+
+const el = getFirstElement(["anishSoni", "PiyushSoni"]);
+console.log(el.toUpperCase());
