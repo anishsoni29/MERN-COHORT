@@ -29,6 +29,6 @@ createUsersTable();
 async function insertData() {
   const result_1 = await client.query(`
     INSERT INTO users (name, email, password) VALUES ('anish', 'sonianish441@gmail.com', 'anish12334')`);
+  console.log(result_1);
 }
-console.log(result_1);
 insertData();
