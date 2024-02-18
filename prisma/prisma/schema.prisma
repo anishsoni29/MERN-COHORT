@@ -7,7 +7,7 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  url      = env("postgresql://sonianish441:TK6bwckjlUS4@ep-twilight-waterfall-38593792.us-east-2.aws.neon.tech/test?sslmode=require")
+  url      = "postgresql://sonianish441:TK6bwckjlUS4@ep-twilight-waterfall-38593792.us-east-2.aws.neon.tech/test?sslmode=require"
 }
 
 //creating a user schema
