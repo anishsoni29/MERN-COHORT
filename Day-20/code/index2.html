@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <body>
+    <div id="buttonParent"></div>
+    <script>
+      //defining the state
+      let state = {
+        count: 0,
+      };
+
+      function onButtonPress() {
+        state.count++;
+        buttonComponentReRender();
+      }
+
+      function buttonComponentReRender() {
+        document.getElementById("buttonParent").innerHTML = "";
+        //this clears the DOM otherwise more and more buttons will keep adding to the state
+        const component = buttonComponent(state.count);
+        document.getElementById("buttonParent").appendChild(component);
+      }
+
+      function buttonComponent(count) {
+        const button = document.createElement("button");
+        button.innerHTML = "Counter " + count;
+        button.setAttribute("onclick", "onButtonPress()");
+        return button;
+      }
+
+      buttonComponentReRender();
+    </script>
+  </body>
+</html>
+
+<!-- this is how a dynamic application is created emulating react. -->
+
+<!-- code-flow -->
+<!-- 1. buttonComponentReRender
+2. onButtonPress 
+3. buttonComponent -->
