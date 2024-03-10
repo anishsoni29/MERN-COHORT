@@ -1,18 +1,26 @@
 import { Hono } from "hono";
 import { PrismaClient } from "@prisma/client/edge";
 import { withAccelerate } from "@prisma/extension-accelerate";
-//adding the JWL to the signup route using the HONO libraries
 import { decode, sign, verify } from "hono/jwt";
-
-// const app = new Hono<{
-//   Bindings: {
-//     DATABASE_URL: string;
-//     JWT_SECRET: string;
-//   };
-// }>();
 
 //initialize Hono
 const app = new Hono();
+
+//middleware
+app.use("/api/v1/blog/*", async (c, next) => {
+  const header = c.req.header("authorization") || "";
+  //Bearer Token ==> ["Bearer", "Token"]
+  const token = header.split(" ")[1];
+
+  //@ts-ignore
+  const response = await verify(token, c.env.JWT_SECRET);
+  if (response.id) {
+    next();
+  } else {
+    c.status(403);
+    return c.json({ error: "unauthorized" });
+  }
+});
 
 //signup route
 app.post("/api/v1/signup", async (c) => {
