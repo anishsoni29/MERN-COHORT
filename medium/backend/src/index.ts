@@ -9,30 +9,29 @@ const app = new Hono();
 //adding the routes
 //c is the context object which has the req,res and next properties
 
-//add code in the signup route -->
-app.post("/api/vi/signup", async (c) => {
+//signup-post code
+
+//@ts-ignore
+app.post("/api/v1/signin", async (c) => {
   const prisma = new PrismaClient({
-    //@ts-ignore
-    datasourceUrl: c.env.DATABASE_URL,
+    datasourceUrl: c.env?.DATABASE_URL,
   }).$extends(withAccelerate());
 
   const body = await c.req.json();
-
-  const user = await prisma.user.create({
-    data: {
+  const user = await prisma.user.findUnique({
+    where: {
       email: body.email,
-      password: body.password,
     },
   });
 
-  //added the user to get the sign token
-  //ignoring the error --> ideally you should not do it.
-  //@ts-ignore
-  const token = sign({ id: user.id }, c.env.JWT_SECRET);
+  if (!user) {
+    c.status(403);
+    return c.json({ error: "user not found" });
+  }
 
-  return c.json({
-    jwt: token,
-  });
+  //@ts-ignore
+  const jwt = await sign({ id: user.id }, c.env.JWT_SECRET);
+  return c.json({ jwt });
 });
 
 app.post("/api/vi/login", (c) => {
