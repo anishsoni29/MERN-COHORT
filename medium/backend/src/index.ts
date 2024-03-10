@@ -4,14 +4,41 @@ import { withAccelerate } from "@prisma/extension-accelerate";
 //adding the JWL to the signup route using the HONO libraries
 import { decode, sign, verify } from "hono/jwt";
 
+// const app = new Hono<{
+//   Bindings: {
+//     DATABASE_URL: string;
+//     JWT_SECRET: string;
+//   };
+// }>();
+
+//initialize Hono
 const app = new Hono();
 
-//adding the routes
-//c is the context object which has the req,res and next properties
+//signup route
+app.post("/api/v1/signup", async (c) => {
+  const prisma = new PrismaClient({
+    datasourceUrl: c.env?.DATABASE_URL,
+  }).$extends(withAccelerate());
 
-//signup-post code
+  const body = await c.req.json();
+  try {
+    const user = await prisma.user.create({
+      data: {
+        email: body.email,
+        password: body.password,
+      },
+    });
+    //@ts-ignore
+    const jwt = await sign({ id: user.id }, c.env.JWT_SECRET);
+    return c.json({ jwt });
+  } catch (e) {
+    c.status(403);
+    return c.json({ error: "error while signing up" });
+  }
+});
 
-//@ts-ignore
+//signin route
+
 app.post("/api/v1/signin", async (c) => {
   const prisma = new PrismaClient({
     datasourceUrl: c.env?.DATABASE_URL,
@@ -21,6 +48,7 @@ app.post("/api/v1/signin", async (c) => {
   const user = await prisma.user.findUnique({
     where: {
       email: body.email,
+      password: body.password,
     },
   });
 
@@ -32,10 +60,6 @@ app.post("/api/v1/signin", async (c) => {
   //@ts-ignore
   const jwt = await sign({ id: user.id }, c.env.JWT_SECRET);
   return c.json({ jwt });
-});
-
-app.post("/api/vi/login", (c) => {
-  return c.text("Signin Route");
 });
 
 app.post("/api/vi/blog", (c) => {
