@@ -1,6 +1,8 @@
 import { Hono } from "hono";
 import { PrismaClient } from "@prisma/client/edge";
 import { withAccelerate } from "@prisma/extension-accelerate";
+//adding the JWL to the signup route using the HONO libraries
+import { decode, sign, verify } from "hono/jwt";
 
 const app = new Hono();
 
@@ -15,13 +17,22 @@ app.post("/api/vi/signup", async (c) => {
   }).$extends(withAccelerate());
 
   const body = await c.req.json();
-  await prisma.user.create({
+
+  const user = await prisma.user.create({
     data: {
       email: body.email,
       password: body.password,
     },
   });
-  return c.text("Signup Route");
+
+  //added the user to get the sign token
+  //ignoring the error --> ideally you should not do it.
+  //@ts-ignore
+  const token = sign({ id: user.id }, c.env.JWT_SECRET);
+
+  return c.json({
+    jwt: token,
+  });
 });
 
 app.post("/api/vi/login", (c) => {
