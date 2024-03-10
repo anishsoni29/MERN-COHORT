@@ -2,18 +2,25 @@ import { Hono } from "hono";
 import { PrismaClient } from "@prisma/client/edge";
 import { withAccelerate } from "@prisma/extension-accelerate";
 
-//@ts-ignore
-const prisma = new PrismaClient({
-  datasourceUrl: env.DATABASE_URL,
-}).$extends(withAccelerate());
-
 const app = new Hono();
 
 //adding the routes
 //c is the context object which has the req,res and next properties
 
 //add code in the signup route -->
-app.post("/api/vi/signup", (c) => {
+app.post("/api/vi/signup", async (c) => {
+  const prisma = new PrismaClient({
+    //@ts-ignore
+    datasourceUrl: c.env.DATABASE_URL,
+  }).$extends(withAccelerate());
+
+  const body = await c.req.json();
+  await prisma.user.create({
+    data: {
+      email: body.email,
+      password: body.password,
+    },
+  });
   return c.text("Signup Route");
 });
 
