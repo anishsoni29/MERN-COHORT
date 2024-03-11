@@ -2,6 +2,8 @@ import { PrismaClient } from "@prisma/client";
 import { withAccelerate } from "@prisma/extension-accelerate";
 import { Hono } from "hono";
 import { sign } from "hono/jwt";
+// import { signupInput, signInInput } from "@anish/medium-common";
+//after deploying the code to npm but it's not working as of now.
 
 export const userRouter = new Hono<{
   Bindings: {
