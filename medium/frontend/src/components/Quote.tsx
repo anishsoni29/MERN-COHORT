@@ -8,8 +8,11 @@ export const Quote = () => {
           went above and beyond to address my concerns."{" "}
         </div>
       </div>
-      <div className="max-w-md text-center text-2xl font-semibold">
+      <div className="max-w-md text-center text-xl font-semibold">
         Julies Winfield
+      </div>
+      <div className="max-w-md text-center text-md text-slate-500">
+        CEO | Acne Max
       </div>
     </div>
   );
