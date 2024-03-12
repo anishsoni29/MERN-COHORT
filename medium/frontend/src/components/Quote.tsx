@@ -11,7 +11,7 @@ export const Quote = () => {
       <div className="max-w-md text-center text-xl font-semibold">
         Julies Winfield
       </div>
-      <div className="max-w-md text-center text-md text-slate-500">
+      <div className="max-w-md text-center font-light text-md text-slate-500">
         CEO | Acne Max
       </div>
     </div>
