@@ -1,11 +1,9 @@
-//writing a route handler here
+import { NextRequest } from "next/server";
 
-export function GET() {
-  //database logic
+export async function POST(req: NextRequest) {
+  const body = await req.json();
+  console.log(body);
   return Response.json({
-    email: "anishsoni@gmail.com",
-    name: "Anish Soni",
+    message: " Your are now logged in!",
   });
 }
-
-//returns the JSON token as response

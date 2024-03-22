@@ -2,10 +2,8 @@ import axios from "axios";
 
 async function getUserDetails() {
   //delaying the code for 5 seconds
-  await new Promise((r) => setTimeout(r, 5000));
-  const response = await axios.get(
-    "https://week-13-offline.kirattechnologies.workers.dev/api/v1/user/details"
-  );
+  // loader --> await new Promise((r) => setTimeout(r, 2000));
+  const response = await axios.get("http://localhost:3000/api/user");
   return response.data;
 }
 
