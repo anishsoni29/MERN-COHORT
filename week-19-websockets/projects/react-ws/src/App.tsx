@@ -6,6 +6,8 @@ function App() {
   const [latestMessage, setLatestMessage] = useState("");
 
   useEffect(() => {
+    setTimeout(() => {}, 5000);
+    //added an artificial delay
     const socket = new WebSocket("ws://localhost:8080");
     socket.onopen = () => {
       console.log("Connected to server");
