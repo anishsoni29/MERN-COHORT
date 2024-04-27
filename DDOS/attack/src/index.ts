@@ -26,3 +26,5 @@ async function sendRequest(otp: string) {
 }
 
 sendRequest("290801");
+
+//BATCHING LEFT
