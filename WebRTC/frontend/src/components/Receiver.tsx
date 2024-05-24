@@ -1,50 +1,47 @@
-import { useEffect, useRef } from "react";
+import { useEffect } from "react";
 
-export function Receiver() {
-  const videoRef = useRef<HTMLVideoElement>(null);
+export const Receiver = () => {
   useEffect(() => {
-    const socket = new WebSocket("ws://localhost:8080/receiver");
+    const socket = new WebSocket("ws://localhost:8080");
     socket.onopen = () => {
-      socket.send(JSON.stringify({ type: "receiver" }));
+      socket.send(
+        JSON.stringify({
+          type: "receiver",
+        })
+      );
+    };
+    startReceiving(socket);
+  }, []);
+
+  function startReceiving(socket: WebSocket) {
+    const video = document.createElement("video");
+    document.body.appendChild(video);
+
+    const pc = new RTCPeerConnection();
+    pc.ontrack = (event) => {
+      video.srcObject = new MediaStream([event.track]);
+      video.play();
     };
 
-    socket.onmessage = async (event) => {
+    socket.onmessage = (event) => {
       const message = JSON.parse(event.data);
       if (message.type === "createOffer") {
-        const pc = new RTCPeerConnection();
-        pc.onicecandidate = (event) => {
-          console.log(event);
-          if (event.candidate) {
-            socket?.send(
+        pc.setRemoteDescription(message.sdp).then(() => {
+          pc.createAnswer().then((answer) => {
+            pc.setLocalDescription(answer);
+            socket.send(
               JSON.stringify({
-                type: "iceCandidate",
-                candidate: event.candidate,
+                type: "createAnswer",
+                sdp: answer,
               })
             );
-            pc.ontrack = (event) => {
-              const video = document.createElement("video");
-              document.body.appendChild(video);
-              video.srcObject = new MediaStream([event.track]);
-              video.play();
-            };
-          }
-        };
-        await pc.setRemoteDescription(message.sdp);
-        const answer = await pc.createAnswer();
-        await pc.setLocalDescription(answer);
-        socket.send(
-          JSON.stringify({ type: "createAnswer", sdp: pc.localDescription })
-        );
+          });
+        });
       } else if (message.type === "iceCandidate") {
-        const pc = new RTCPeerConnection();
         pc.addIceCandidate(message.candidate);
       }
     };
-  }, []);
-  return (
-    <div>
-      Receiver
-      <video ref={videoRef}></video>
-    </div>
-  );
-}
+  }
+
+  return <div></div>;
+};
