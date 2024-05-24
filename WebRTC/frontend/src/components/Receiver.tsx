@@ -20,6 +20,9 @@ export function Receiver() {
                 candidate: event.candidate,
               })
             );
+            pc.ontrack = (track) => {
+              console.log(track);
+            };
           }
         };
         await pc.setRemoteDescription(message.sdp);
@@ -28,6 +31,9 @@ export function Receiver() {
         socket.send(
           JSON.stringify({ type: "createAnswer", sdp: pc.localDescription })
         );
+      } else if (message.type === "iceCandidate") {
+        const pc = new RTCPeerConnection();
+        pc.addIceCandidate(message.candidate);
       }
     };
   }, []);

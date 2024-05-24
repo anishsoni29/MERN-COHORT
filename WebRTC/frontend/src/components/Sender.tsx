@@ -16,8 +16,13 @@ export function Sender() {
 
     // create an offer
     const pc = new RTCPeerConnection();
-    const offer = await pc.createOffer(); //sdp
-    await pc.setLocalDescription(offer);
+    pc.onnegotiationneeded = async () => {
+      const offer = await pc.createOffer(); //sdp
+      await pc.setLocalDescription(offer);
+      socket?.send(
+        JSON.stringify({ type: "createOffer", sdp: pc.localDescription })
+      );
+    };
 
     pc.onicecandidate = (event) => {
       console.log(event);
@@ -40,6 +45,11 @@ export function Sender() {
         pc.addIceCandidate(data.candidate);
       }
     };
+    const stream = await navigator.mediaDevices.getUserMedia({
+      video: true,
+      audio: false,
+    });
+    pc.addTrack(stream.getVideoTracks()[0]);
   }
 
   return (
