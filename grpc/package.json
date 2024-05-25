@@ -10,6 +10,8 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "@grpc/grpc-js": "^1.10.8",
+    "@grpc/proto-loader": "^0.7.13",
     "typescript": "^5.4.5"
   }
 }
