@@ -11,5 +11,9 @@
   "description": "",
   "dependencies": {
     "typescript": "^5.4.5"
+  },
+  "devDependencies": {
+    "@jest/globals": "^29.7.0",
+    "ts-jest": "^29.1.3"
   }
 }
